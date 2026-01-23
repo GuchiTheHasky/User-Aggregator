@@ -1,0 +1,58 @@
+openapi: "3.0.1"
+info:
+  title: "OpenAPI definition"
+  version: "v0"
+servers:
+  - url: "http://localhost"
+    description: "Generated server url"
+tags:
+  - name: "Users"
+    description: "Users aggregation API"
+paths:
+  /users:
+    get:
+      tags:
+        - "Users"
+      summary: "Get all users"
+      description: "Aggregates users from all configured databases sequentially and\
+        \ returns them as a JSON array"
+      operationId: "getUsers"
+      responses:
+        "200":
+          description: "Successfully retrieved users"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/UserDto"
+        "500":
+          description: "Internal server error"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/UserDto"
+components:
+  schemas:
+    UserDto:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          description: "User ID"
+          example: "1"
+        username:
+          type: "string"
+          description: "Username"
+          example: "jdoe"
+        name:
+          type: "string"
+          description: "First name"
+          example: "John"
+        surname:
+          type: "string"
+          description: "Last name"
+          example: "Doe"
+      description: "User information"

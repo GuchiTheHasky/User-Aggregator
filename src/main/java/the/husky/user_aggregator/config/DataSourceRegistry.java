@@ -1,0 +1,67 @@
+package the.husky.user_aggregator.config;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Registry that creates and manages DataSources and JdbcTemplates for all configured sources
+ */
+@Component
+@Slf4j
+public class DataSourceRegistry {
+    private final Map<String, JdbcTemplate> jdbcTemplates = new HashMap<>();
+    
+    /**
+     * Creates a DataSource and JdbcTemplate for the given configuration
+     */
+    public void registerDataSource(DataSourceProperties props) {
+        log.info("Registering data source: {}", props.getName());
+        
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(props.getUrl());
+        if (props.getUser() != null && !props.getUser().isEmpty()) {
+            config.setUsername(props.getUser());
+        }
+        if (props.getPassword() != null && !props.getPassword().isEmpty()) {
+            config.setPassword(props.getPassword());
+        }
+        config.setDriverClassName(getDriverClassName(props.getStrategy()));
+        config.setPoolName(props.getName() + "-pool");
+        config.setMaximumPoolSize(5);
+        config.setMinimumIdle(1);
+        config.setConnectionTimeout(30000);
+        config.setIdleTimeout(600000);
+        config.setMaxLifetime(1800000);
+        
+        DataSource dataSource = new HikariDataSource(config);
+        jdbcTemplates.put(props.getName(), new JdbcTemplate(dataSource));
+        
+        log.info("Successfully registered data source: {}", props.getName());
+    }
+    
+    /**
+     * Gets the JdbcTemplate for a data source by name
+     */
+    public JdbcTemplate getJdbcTemplate(String name) {
+        JdbcTemplate template = jdbcTemplates.get(name);
+        if (template == null) {
+            throw new IllegalArgumentException("Data source not found: " + name);
+        }
+        return template;
+    }
+
+    private String getDriverClassName(String strategy) {
+        return switch (strategy.toLowerCase()) {
+            case "postgres" -> "org.postgresql.Driver";
+            case "mysql" -> "com.mysql.cj.jdbc.Driver";
+            default -> throw new IllegalArgumentException("Unknown database strategy: " + strategy);
+        };
+    }
+}

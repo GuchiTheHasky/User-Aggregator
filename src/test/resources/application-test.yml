@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: user-aggregator-test
+
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+# Data sources configuration - will be overridden by test properties
+data-sources:
+  sources:
+    - name: data-base-1
+      strategy: postgres
+      url: ${test.postgres.url:jdbc:postgresql://localhost:5432/postgres}
+      user: ${test.postgres.user:postgres}
+      password: ${test.postgres.password:postgres}
+      table: users_pg
+      mapping:
+        id: user_id
+        username: login
+        name: first_name
+        surname: last_name
+    - name: data-base-2
+      strategy: mysql
+      url: ${test.mysql.url:jdbc:mysql://localhost:3306/mysql_db?useSSL=false&allowPublicKeyRetrieval=true}
+      user: ${test.mysql.user:root}
+      password: ${test.mysql.password:rootpassword}
+      table: users_mysql
+      mapping:
+        id: id
+        username: username
+        name: name
+        surname: surname
