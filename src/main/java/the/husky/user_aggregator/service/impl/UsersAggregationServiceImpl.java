@@ -28,7 +28,7 @@ public class UsersAggregationServiceImpl implements UsersAggregationService {
         List<UserDto> allUsers = new ArrayList<>();
         
         // Iterate through data sources in configured order
-        for (DataSourceProperties props : configProperties.getSources()) {
+        for (DataSourceProperties props : configProperties.getDatabases()) {
             log.debug("Reading users from data source: {}", props.getName());
             
             try {

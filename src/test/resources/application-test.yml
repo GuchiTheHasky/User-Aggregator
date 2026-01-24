@@ -13,7 +13,7 @@ springdoc:
 
 # Data sources configuration - properties are set by @DynamicPropertySource in AbstractIntegrationTest
 data-sources:
-  sources:
+  databases:
     - name: data-base-1
       strategy: postgres
       url: ${test.postgres.url}

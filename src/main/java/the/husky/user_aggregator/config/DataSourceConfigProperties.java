@@ -12,5 +12,5 @@ import java.util.List;
 @ConfigurationProperties(prefix = "data-sources")
 public class DataSourceConfigProperties {
     
-    private List<DataSourceProperties> sources = new ArrayList<>();
+    private List<DataSourceProperties> databases = new ArrayList<>();
 }

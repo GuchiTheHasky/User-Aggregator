@@ -15,8 +15,8 @@ public class DataSourceConfiguration {
     
     @PostConstruct
     public void initializeDataSources() {
-        log.info("Initializing {} data sources", configProperties.getSources().size());
-        for (DataSourceProperties props : configProperties.getSources()) {
+        log.info("Initializing {} data sources", configProperties.getDatabases().size());
+        for (DataSourceProperties props : configProperties.getDatabases()) {
             try {
                 dataSourceRegistry.registerDataSource(props);
             } catch (Exception e) {

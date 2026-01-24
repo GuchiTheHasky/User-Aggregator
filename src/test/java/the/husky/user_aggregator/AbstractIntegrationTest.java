@@ -38,7 +38,7 @@ public abstract class AbstractIntegrationTest {
 		registry.add("test.postgres.user", POSTGRES_CONTAINER::getUsername);
 		registry.add("test.postgres.password", POSTGRES_CONTAINER::getPassword);
 		
-		registry.add("test.mysql.url", () -> MYSQL_CONTAINER.getJdbcUrl() + "?useSSL=false&allowPublicKeyRetrieval=true");
+		registry.add("test.mysql.url", MYSQL_CONTAINER::getJdbcUrl);
 		registry.add("test.mysql.user", MYSQL_CONTAINER::getUsername);
 		registry.add("test.mysql.password", MYSQL_CONTAINER::getPassword);
 	}

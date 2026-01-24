@@ -13,7 +13,7 @@ springdoc:
 
 # Data sources configuration
 data-sources:
-  sources:
+  databases:
     - name: data-base-1
       strategy: postgres
       url: jdbc:postgresql://localhost:5432/postgres
@@ -27,7 +27,7 @@ data-sources:
         surname: last_name
     - name: data-base-2
       strategy: mysql
-      url: jdbc:mysql://localhost:3306/mysql_db?useSSL=false&allowPublicKeyRetrieval=true
+      url: jdbc:mysql://localhost:3306/mysql_db
       user: user_mysql
       password: pass
       table: users_mysql
