@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * User DTO with canonical fields: id, username, name, surname
- */
+
 @Schema(description = "User information")
 @Getter
 @Setter

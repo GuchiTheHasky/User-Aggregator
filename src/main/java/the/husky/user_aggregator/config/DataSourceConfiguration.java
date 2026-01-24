@@ -5,12 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Configuration class that initializes all data sources at startup
- */
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
-@Slf4j
 public class DataSourceConfiguration {
     
     private final DataSourceConfigProperties configProperties;

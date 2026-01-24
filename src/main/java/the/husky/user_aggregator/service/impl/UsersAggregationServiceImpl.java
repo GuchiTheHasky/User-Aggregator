@@ -14,12 +14,9 @@ import the.husky.user_aggregator.service.UsersAggregationService;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Implementation of users aggregation service
- */
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class UsersAggregationServiceImpl implements UsersAggregationService {
     
     private final DataSourceConfigProperties configProperties;

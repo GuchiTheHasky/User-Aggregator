@@ -3,9 +3,6 @@ package the.husky.user_aggregator.config;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Configuration for a single data source with column mapping
- */
 @Getter
 @Setter
 public class DataSourceProperties {

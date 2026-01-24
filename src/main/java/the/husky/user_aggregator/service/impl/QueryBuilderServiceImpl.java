@@ -5,11 +5,8 @@ import org.springframework.stereotype.Service;
 import the.husky.user_aggregator.config.DataSourceProperties;
 import the.husky.user_aggregator.service.QueryBuilderService;
 
-/**
- * Implementation of SQL query builder service
- */
-@Service
 @Slf4j
+@Service
 public class QueryBuilderServiceImpl implements QueryBuilderService {
     
     @Override

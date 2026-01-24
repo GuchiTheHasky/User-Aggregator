@@ -10,17 +10,11 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Registry that creates and manages DataSources and JdbcTemplates for all configured sources
- */
-@Component
 @Slf4j
+@Component
 public class DataSourceRegistry {
     private final Map<String, JdbcTemplate> jdbcTemplates = new HashMap<>();
-    
-    /**
-     * Creates a DataSource and JdbcTemplate for the given configuration
-     */
+
     public void registerDataSource(DataSourceProperties props) {
         log.info("Registering data source: {}", props.getName());
         
@@ -45,10 +39,7 @@ public class DataSourceRegistry {
         
         log.info("Successfully registered data source: {}", props.getName());
     }
-    
-    /**
-     * Gets the JdbcTemplate for a data source by name
-     */
+
     public JdbcTemplate getJdbcTemplate(String name) {
         JdbcTemplate template = jdbcTemplates.get(name);
         if (template == null) {
