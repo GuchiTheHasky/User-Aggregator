@@ -11,14 +11,14 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
-# Data sources configuration - will be overridden by test properties
+# Data sources configuration - properties are set by @DynamicPropertySource in AbstractIntegrationTest
 data-sources:
   sources:
     - name: data-base-1
       strategy: postgres
-      url: ${test.postgres.url:jdbc:postgresql://localhost:5432/postgres}
-      user: ${test.postgres.user:postgres}
-      password: ${test.postgres.password:postgres}
+      url: ${test.postgres.url}
+      user: ${test.postgres.user}
+      password: ${test.postgres.password}
       table: users_pg
       mapping:
         id: user_id
@@ -27,9 +27,9 @@ data-sources:
         surname: last_name
     - name: data-base-2
       strategy: mysql
-      url: ${test.mysql.url:jdbc:mysql://localhost:3306/mysql_db?useSSL=false&allowPublicKeyRetrieval=true}
-      user: ${test.mysql.user:root}
-      password: ${test.mysql.password:rootpassword}
+      url: ${test.mysql.url}
+      user: ${test.mysql.user}
+      password: ${test.mysql.password}
       table: users_mysql
       mapping:
         id: id

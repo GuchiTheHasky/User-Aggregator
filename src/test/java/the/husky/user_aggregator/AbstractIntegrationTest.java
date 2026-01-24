@@ -16,10 +16,15 @@ public abstract class AbstractIntegrationTest {
 
 	private static PostgreSQLContainer<?> POSTGRES_CONTAINER = new PostgreSQLContainer<>("postgres:15-alpine")
 			.withDatabaseName("postgres")
+			.withUsername("user_postgre")
+			.withPassword("pass")
 			.withInitScript("db-init/postgres-init.sql");
 
 	private static MySQLContainer<?> MYSQL_CONTAINER = new MySQLContainer<>("mysql:8.0")
 			.withDatabaseName("mysql_db")
+			.withUsername("user_mysql")
+			.withPassword("pass")
+			.withEnv("MYSQL_ROOT_PASSWORD", "pass")
 			.withInitScript("db-init/mysql-init.sql");
 
 	static {
