@@ -28,7 +28,7 @@ public class UserReaderServiceImpl implements UserReaderService {
             
             return jdbcTemplate.query(selectQuery, (resultSet, rowNumber) -> userMapper.mapFromResultSet(resultSet));
         } catch (Exception e) {
-            throw new RuntimeException("Failed to execute query for data source: " + dataSourceProperties.getName(), e);
+            throw new RuntimeException("Failed to execute query for data source: " + dataSourceProperties.getDbName(), e);
         }
     }
 }

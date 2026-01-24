@@ -20,8 +20,7 @@ public class DataSourceConfiguration {
             try {
                 dataSourceRegistry.registerDataSource(props);
             } catch (Exception e) {
-                log.error("Failed to initialize data source: {}", props.getName(), e);
-                throw new RuntimeException("Failed to initialize data source: " + props.getName(), e);
+                throw new RuntimeException("Failed to initialize data base: " + props.getDbName(), e);
             }
         }
         log.info("All data sources initialized successfully");

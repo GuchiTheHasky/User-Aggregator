@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DataSourceProperties {
-    private String name;
+    private String dbName;
     private String strategy; // postgres, mysql
     private String url;
     private String user;

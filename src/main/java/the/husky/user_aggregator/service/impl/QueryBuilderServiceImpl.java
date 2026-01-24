@@ -18,11 +18,11 @@ public class QueryBuilderServiceImpl implements QueryBuilderService {
             
             if (mapping == null || mapping.getId() == null || mapping.getUsername() == null 
                     || mapping.getName() == null || mapping.getSurname() == null) {
-                throw new IllegalArgumentException("Column mapping is incomplete for data source: " + props.getName());
+                throw new IllegalArgumentException("Column mapping is incomplete for data source: " + props.getDbName());
             }
             
             if (table == null || table.isEmpty()) {
-                throw new IllegalArgumentException("Table name is not specified for data source: " + props.getName());
+                throw new IllegalArgumentException("Table name is not specified for data source: " + props.getDbName());
             }
             
             // Build query with column aliases
@@ -35,8 +35,8 @@ public class QueryBuilderServiceImpl implements QueryBuilderService {
                     escapeIdentifier(table, strategy)
             );
         } catch (Exception e) {
-            log.error("Error building query for data source: {}", props.getName(), e);
-            throw new RuntimeException("Failed to build query for data source: " + props.getName(), e);
+            log.error("Error building query for data source: {}", props.getDbName(), e);
+            throw new RuntimeException("Failed to build query for data source: " + props.getDbName(), e);
         }
     }
     

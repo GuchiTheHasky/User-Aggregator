@@ -16,7 +16,7 @@ public class DataSourceRegistry {
     private final Map<String, JdbcTemplate> jdbcTemplates = new HashMap<>();
 
     public void registerDataSource(DataSourceProperties props) {
-        log.info("Registering data source: {}", props.getName());
+        log.info("Registering data source: {}", props.getDbName());
         
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(props.getUrl());
@@ -27,7 +27,7 @@ public class DataSourceRegistry {
             config.setPassword(props.getPassword());
         }
         config.setDriverClassName(getDriverClassName(props.getStrategy()));
-        config.setPoolName(props.getName() + "-pool");
+        config.setPoolName(props.getDbName() + "-pool");
         config.setMaximumPoolSize(5);
         config.setMinimumIdle(1);
         config.setConnectionTimeout(30000);
@@ -35,9 +35,9 @@ public class DataSourceRegistry {
         config.setMaxLifetime(1800000);
         
         DataSource dataSource = new HikariDataSource(config);
-        jdbcTemplates.put(props.getName(), new JdbcTemplate(dataSource));
+        jdbcTemplates.put(props.getDbName(), new JdbcTemplate(dataSource));
         
-        log.info("Successfully registered data source: {}", props.getName());
+        log.info("Successfully registered data source: {}", props.getDbName());
     }
 
     public JdbcTemplate getJdbcTemplate(String name) {

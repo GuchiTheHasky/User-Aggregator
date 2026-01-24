@@ -29,16 +29,16 @@ public class UsersAggregationServiceImpl implements UsersAggregationService {
         
         // Iterate through data sources in configured order
         for (DataSourceProperties props : configProperties.getDatabases()) {
-            log.debug("Reading users from data source: {}", props.getName());
+            log.debug("Reading users from data bases: {}", props.getDbName());
             
             try {
-                JdbcTemplate jdbcTemplate = dataSourceRegistry.getJdbcTemplate(props.getName());
+                JdbcTemplate jdbcTemplate = dataSourceRegistry.getJdbcTemplate(props.getDbName());
                 List<UserDto> users = userReaderService.readUsersFromSource(jdbcTemplate, props);
                 allUsers.addAll(users);
-                log.info("Read {} users from data source: {}", users.size(), props.getName());
+                log.info("Read {} users from data source: {}", users.size(), props.getDbName());
             } catch (Exception e) {
-                log.error("Error reading users from data source: {}", props.getName(), e);
-                throw new RuntimeException("Failed to read users from data source: " + props.getName(), e);
+                log.error("Error reading users from data source: {}", props.getDbName(), e);
+                throw new RuntimeException("Failed to read users from data source: " + props.getDbName(), e);
             }
         }
         
