@@ -33,8 +33,7 @@ public class DataSourceRegistry {
         config.setConnectionTimeout(30000);
         config.setIdleTimeout(600000);
         config.setMaxLifetime(1800000);
-        config.setInitializationFailTimeout(-1);
-        
+
         DataSource dataSource = new HikariDataSource(config);
         jdbcTemplates.put(props.getDbName(), new JdbcTemplate(dataSource));
         

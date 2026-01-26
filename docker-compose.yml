@@ -11,7 +11,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./db-init/postgres-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user_postgre -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   mysql:
     image: mysql:8.0
     container_name: user-aggregator-mysql
@@ -26,16 +30,21 @@ services:
       - mysql_data:/var/lib/mysql
       - ./db-init/mysql-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     command: --default-authentication-plugin=mysql_native_password
-
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "user_mysql", "-ppass"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   app:
     build: .
     container_name: user-aggregator-app
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
-      - mysql
-    restart: on-failure
+      postgres:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: default
       DATA_SOURCES_DATABASES_0_DB_NAME: data-base-1
@@ -43,25 +52,21 @@ services:
       DATA_SOURCES_DATABASES_0_URL: jdbc:postgresql://postgres:5432/postgres
       DATA_SOURCES_DATABASES_0_USER: user_postgre
       DATA_SOURCES_DATABASES_0_PASSWORD: pass
-
       DATA_SOURCES_DATABASES_0_TABLE: users_pg
       DATA_SOURCES_DATABASES_0_COLUMN_MAPPING_ID: user_id
       DATA_SOURCES_DATABASES_0_COLUMN_MAPPING_USERNAME: login
       DATA_SOURCES_DATABASES_0_COLUMN_MAPPING_NAME: first_name
       DATA_SOURCES_DATABASES_0_COLUMN_MAPPING_SURNAME: last_name
-
       DATA_SOURCES_DATABASES_1_DB_NAME: data-base-2
       DATA_SOURCES_DATABASES_1_STRATEGY: mysql
       DATA_SOURCES_DATABASES_1_URL: jdbc:mysql://mysql:3306/mysql_db
       DATA_SOURCES_DATABASES_1_USER: user_mysql
       DATA_SOURCES_DATABASES_1_PASSWORD: pass
-
       DATA_SOURCES_DATABASES_1_TABLE: users_mysql
       DATA_SOURCES_DATABASES_1_COLUMN_MAPPING_ID: id
       DATA_SOURCES_DATABASES_1_COLUMN_MAPPING_USERNAME: username
       DATA_SOURCES_DATABASES_1_COLUMN_MAPPING_NAME: name
       DATA_SOURCES_DATABASES_1_COLUMN_MAPPING_SURNAME: surname
-
 volumes:
   postgres_data:
   mysql_data:
