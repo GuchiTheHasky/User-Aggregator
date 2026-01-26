@@ -28,7 +28,7 @@ public class UsersAggregationServiceImpl implements UsersAggregationService {
         List<UserDto> allUsers = new ArrayList<>();
         
         for (DataSourceProperties props : configProperties.getDatabases()) {
-            log.debug("Reading users from data bases: {}", props.getDbName());
+            log.debug("Reading users from data source: {}", props.getDbName());
             
             try {
                 JdbcTemplate jdbcTemplate = dataSourceRegistry.getJdbcTemplate(props.getDbName());

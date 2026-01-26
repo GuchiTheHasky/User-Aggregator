@@ -13,7 +13,6 @@ import the.husky.user_aggregator.service.UsersAggregationService;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor

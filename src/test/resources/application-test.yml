@@ -8,30 +8,27 @@ server:
 springdoc:
   api-docs:
     path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
 
-# Data sources configuration - properties are set by @DynamicPropertySource in AbstractIntegrationTest
 data-sources:
   databases:
-    - name: data-base-1
+    - db-name: data-base-1
       strategy: postgres
       url: ${test.postgres.url}
       user: ${test.postgres.user}
       password: ${test.postgres.password}
       table: users_pg
-      mapping:
+      column-mapping:
         id: user_id
         username: login
         name: first_name
         surname: last_name
-    - name: data-base-2
+    - db-name: data-base-2
       strategy: mysql
       url: ${test.mysql.url}
       user: ${test.mysql.user}
       password: ${test.mysql.password}
       table: users_mysql
-      mapping:
+      column-mapping:
         id: id
         username: username
         name: name
