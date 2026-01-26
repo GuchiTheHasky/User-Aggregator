@@ -16,6 +16,7 @@ services:
     image: mysql:8.0
     container_name: user-aggregator-mysql
     environment:
+      MYSQL_ROOT_PASSWORD: pass
       MYSQL_USER: user_mysql
       MYSQL_PASSWORD: pass
       MYSQL_DATABASE: mysql_db
@@ -34,31 +35,32 @@ services:
     depends_on:
       - postgres
       - mysql
+    restart: on-failure
     environment:
       SPRING_PROFILES_ACTIVE: default
-      DATA_SOURCES_DATABASES_0_NAME: data-base-1
+      DATA_SOURCES_DATABASES_0_DB_NAME: data-base-1
       DATA_SOURCES_DATABASES_0_STRATEGY: postgres
       DATA_SOURCES_DATABASES_0_URL: jdbc:postgresql://postgres:5432/postgres
       DATA_SOURCES_DATABASES_0_USER: user_postgre
       DATA_SOURCES_DATABASES_0_PASSWORD: pass
 
       DATA_SOURCES_DATABASES_0_TABLE: users_pg
-      DATA_SOURCES_DATABASES_0_MAPPING_ID: user_id
-      DATA_SOURCES_DATABASES_0_MAPPING_USERNAME: login
-      DATA_SOURCES_DATABASES_0_MAPPING_NAME: first_name
-      DATA_SOURCES_DATABASES_0_MAPPING_SURNAME: last_name
+      DATA_SOURCES_DATABASES_0_COLUMN_MAPPING_ID: user_id
+      DATA_SOURCES_DATABASES_0_COLUMN_MAPPING_USERNAME: login
+      DATA_SOURCES_DATABASES_0_COLUMN_MAPPING_NAME: first_name
+      DATA_SOURCES_DATABASES_0_COLUMN_MAPPING_SURNAME: last_name
 
-      DATA_SOURCES_DATABASES_1_NAME: data-base-2
+      DATA_SOURCES_DATABASES_1_DB_NAME: data-base-2
       DATA_SOURCES_DATABASES_1_STRATEGY: mysql
       DATA_SOURCES_DATABASES_1_URL: jdbc:mysql://mysql:3306/mysql_db
       DATA_SOURCES_DATABASES_1_USER: user_mysql
       DATA_SOURCES_DATABASES_1_PASSWORD: pass
 
       DATA_SOURCES_DATABASES_1_TABLE: users_mysql
-      DATA_SOURCES_DATABASES_1_MAPPING_ID: id
-      DATA_SOURCES_DATABASES_1_MAPPING_USERNAME: username
-      DATA_SOURCES_DATABASES_1_MAPPING_NAME: name
-      DATA_SOURCES_DATABASES_1_MAPPING_SURNAME: surname
+      DATA_SOURCES_DATABASES_1_COLUMN_MAPPING_ID: id
+      DATA_SOURCES_DATABASES_1_COLUMN_MAPPING_USERNAME: username
+      DATA_SOURCES_DATABASES_1_COLUMN_MAPPING_NAME: name
+      DATA_SOURCES_DATABASES_1_COLUMN_MAPPING_SURNAME: surname
 
 volumes:
   postgres_data:
