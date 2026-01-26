@@ -23,11 +23,14 @@ class QueryBuilderServiceImplTest {
         
         assertNotNull(query);
         assertTrue(query.contains("SELECT"));
-        assertTrue(query.contains("\"user_id\""));
-        assertTrue(query.contains("\"login\""));
-        assertTrue(query.contains("\"users_pg\""));
+        assertTrue(query.contains("user_id"));
+        assertTrue(query.contains("login"));
+        assertTrue(query.contains("users_pg"));
         assertTrue(query.contains("AS id"));
         assertTrue(query.contains("AS username"));
+        assertTrue(query.contains("AS name"));
+        assertTrue(query.contains("AS surname"));
+        assertTrue(query.contains("FROM"));
     }
 
     @Test
@@ -38,11 +41,14 @@ class QueryBuilderServiceImplTest {
         
         assertNotNull(query);
         assertTrue(query.contains("SELECT"));
-        assertTrue(query.contains("`id`"));
-        assertTrue(query.contains("`username`"));
-        assertTrue(query.contains("`users_mysql`"));
+        assertTrue(query.contains("id"));
+        assertTrue(query.contains("username"));
+        assertTrue(query.contains("users_mysql"));
         assertTrue(query.contains("AS id"));
         assertTrue(query.contains("AS username"));
+        assertTrue(query.contains("AS name"));
+        assertTrue(query.contains("AS surname"));
+        assertTrue(query.contains("FROM"));
     }
 
     @Test

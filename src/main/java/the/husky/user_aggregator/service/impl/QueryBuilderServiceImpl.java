@@ -12,7 +12,6 @@ public class QueryBuilderServiceImpl implements QueryBuilderService {
         try {
             DataSourceProperties.ColumnMapping mapping = dataSourceProperties.getColumnMapping();
             String table = dataSourceProperties.getTable();
-            String strategy = dataSourceProperties.getStrategy();
 
             if (isInvalidDataSourceConfiguration(mapping, table)) {
                 throw new IllegalArgumentException(
@@ -22,11 +21,11 @@ public class QueryBuilderServiceImpl implements QueryBuilderService {
 
             return String.format(
                     "SELECT %s AS id, %s AS username, %s AS name, %s AS surname FROM %s",
-                    wrapIdentifier(mapping.getId(), strategy),
-                    wrapIdentifier(mapping.getUsername(), strategy),
-                    wrapIdentifier(mapping.getName(), strategy),
-                    wrapIdentifier(mapping.getSurname(), strategy),
-                    wrapIdentifier(table, strategy)
+                    mapping.getId(),
+                    mapping.getUsername(),
+                    mapping.getName(),
+                    mapping.getSurname(),
+                    table
             );
         } catch (Exception e) {
             throw new RuntimeException("Failed to build query for data source: %s"
@@ -38,11 +37,5 @@ public class QueryBuilderServiceImpl implements QueryBuilderService {
         return mapping == null || mapping.getId() == null || mapping.getUsername() == null
                 || mapping.getName() == null || mapping.getSurname() == null
                 || table == null || table.isEmpty();
-    }
-
-    private String wrapIdentifier(String identifier, String strategy) {
-        return "mysql".equalsIgnoreCase(strategy)
-                ? "`" + identifier + "`"
-                : "\"" + identifier + "\"";
     }
 }
