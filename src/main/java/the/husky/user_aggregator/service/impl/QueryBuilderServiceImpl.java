@@ -15,7 +15,9 @@ public class QueryBuilderServiceImpl implements QueryBuilderService {
             String strategy = dataSourceProperties.getStrategy();
 
             if (isInvalidDataSourceConfiguration(mapping, table)) {
-                throw new IllegalArgumentException("Data source configuration is incomplete for data source: " + dataSourceProperties.getDbName());
+                throw new IllegalArgumentException(
+                        "Data source configuration is incomplete for data source: %s"
+                                .formatted(dataSourceProperties.getDbName()));
             }
 
             return String.format(
@@ -27,7 +29,8 @@ public class QueryBuilderServiceImpl implements QueryBuilderService {
                     wrapIdentifier(table, strategy)
             );
         } catch (Exception e) {
-            throw new RuntimeException("Failed to build query for data source: " + dataSourceProperties.getDbName(), e);
+            throw new RuntimeException("Failed to build query for data source: %s"
+                    .formatted(dataSourceProperties.getDbName()), e);
         }
     }
 

@@ -14,15 +14,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDto {
     
-    @Schema(description = "User ID", example = "1")
+    @Schema(description = "User ID")
     private String id;
     
-    @Schema(description = "Username", example = "jdoe")
+    @Schema(description = "Username")
     private String username;
     
-    @Schema(description = "First name", example = "John")
+    @Schema(description = "First name")
     private String name;
     
-    @Schema(description = "Last name", example = "Doe")
+    @Schema(description = "Last name")
     private String surname;
 }

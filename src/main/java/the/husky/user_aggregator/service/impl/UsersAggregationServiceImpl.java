@@ -27,7 +27,6 @@ public class UsersAggregationServiceImpl implements UsersAggregationService {
     public List<UserDto> aggregateUsers() {
         List<UserDto> allUsers = new ArrayList<>();
         
-        // Iterate through data sources in configured order
         for (DataSourceProperties props : configProperties.getDatabases()) {
             log.debug("Reading users from data bases: {}", props.getDbName());
             
@@ -37,8 +36,7 @@ public class UsersAggregationServiceImpl implements UsersAggregationService {
                 allUsers.addAll(users);
                 log.info("Read {} users from data source: {}", users.size(), props.getDbName());
             } catch (Exception e) {
-                log.error("Error reading users from data source: {}", props.getDbName(), e);
-                throw new RuntimeException("Failed to read users from data source: " + props.getDbName(), e);
+                throw new RuntimeException("Failed to read users from data source: %s".formatted(props.getDbName()), e);
             }
         }
         

@@ -7,9 +7,7 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-/**
- * Abstract base class for integration tests with PostgreSQL and MySQL containers
- */
+
 @Testcontainers
 @ActiveProfiles("test")
 public abstract class AbstractIntegrationTest {
