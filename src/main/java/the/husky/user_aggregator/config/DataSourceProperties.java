@@ -7,12 +7,12 @@ import lombok.Setter;
 @Setter
 public class DataSourceProperties {
     private String dbName;
-    private String strategy; // postgres, mysql
+    private String strategy;
     private String url;
     private String user;
     private String password;
     private String table;
-    private ColumnMapping mapping;
+    private ColumnMapping columnMapping;
     
     @Getter
     @Setter
